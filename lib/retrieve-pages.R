@@ -1,12 +1,5 @@
 library(fs)
 
-budget_doc_urls <- c(
-  "https://www.budget.gc.ca/2021/report-rapport/p1-en.html",
-  "https://www.budget.gc.ca/2021/report-rapport/p2-en.html",
-  "https://www.budget.gc.ca/2021/report-rapport/p3-en.html",
-  "https://www.budget.gc.ca/2021/report-rapport/p4-en.html"
-)
-
 ## Check if URL in storage, download and save if not.
 retrieve_page_at_url <- function(url, scrape_waiting_period = 5) {
   file_to_return <- NULL
