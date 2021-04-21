@@ -10,6 +10,7 @@ budget_doc_urls <- c(
   "https://www.budget.gc.ca/2021/report-rapport/p4-en.html"
 )
 
-walk(budget_doc_urls)
+budget_docs <- tibble(url = budget_doc_urls) %>%
+  mutate(page = map(url, retrieve_page_at_url))
 
 
