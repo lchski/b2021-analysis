@@ -20,4 +20,11 @@ proposals <- budget_docs %>%
       html_text2()
   )) %>%
   unnest(cols = c(proposal)) %>%
-  select(part, proposal)
+  select(part, proposal) %>%
+  mutate(proposal = str_remove_all(proposal, "\\r")) %>% ## Next set of `mutate` lines are data cleaning.
+  mutate(proposal = trimws(proposal)) %>%
+  mutate(has_gba_icon = str_detect(proposal, "Gender-Based Analysis\\+$")) %>% ## Note which proposals include a GBA+ icon -- not visible in the text. See all GBA+ summaries here: https://www.budget.gc.ca/2021/pdf/Annexe-5-eng.pdf
+  mutate(proposal = str_remove(proposal, "Gender-Based Analysis\\+$")) %>%
+  mutate(proposal = trimws(proposal))
+
+proposals %>% write_csv("data/out/proposals.csv")
